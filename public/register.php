@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . '/../config/db.php';
+require "config/db.php";
 
 if ($_POST) {
     $username = trim($_POST['username']);
@@ -18,7 +18,7 @@ if ($_POST) {
         $stmt = $db->prepare("INSERT INTO users (username, password, role) VALUES (?,?,?)");
         $stmt->execute([$username, $hash, $role]);
 
-        // ✅ Redirect diretto al login
+        // Redirect diretto al login
         header("Location: login.php?registered=1");
         exit;
     }

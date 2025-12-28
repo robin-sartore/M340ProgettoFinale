@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . '/../config/db.php';
+require "config/db.php";
 
 if ($_POST) {
   $stmt = $db->prepare("SELECT * FROM users WHERE username=?");
