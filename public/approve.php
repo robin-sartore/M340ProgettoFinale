@@ -116,7 +116,7 @@ for ($i = 0; $i < 18; $i++) {
 }
 ip_found:
 
-/* UTENTE E PASSWORD FISSI (base template) */
+/* UTENTE E PASSWORD FISSI */
 $vm_user = "ubuntu";
 $vm_password = "Password/1";
 
