@@ -8,15 +8,13 @@ if (!isset($_SESSION['user'])) {
 require "config/db.php";
 $uid = $_SESSION['user']['id'];
 
-// Recupera le richieste dell'utente con info template e username richiedente
+// Recupera le richieste dell'utente
 $req = $db->prepare("
     SELECT 
         vm_requests.*, 
-        vm_templates.name AS tname, 
-        users.username AS requester_username
+        vm_templates.name AS tname
     FROM vm_requests 
     JOIN vm_templates ON vm_requests.template_id = vm_templates.id
-    JOIN users ON vm_requests.user_id = users.id
     WHERE vm_requests.user_id = ?
     ORDER BY vm_requests.id DESC
 ");
@@ -80,11 +78,11 @@ $rows = $req->fetchAll(PDO::FETCH_ASSOC);
                                     </td>
                                     <td>
                                         <?php if ($r['status'] == 'approved'): ?>
-                                            <?php if (!empty($r['ip']) && $r['ip'] != 'Non rilevato' && strpos($r['ip'], 'attesa') === false): ?>
+                                            <?php if (!empty($r['ip']) && strpos($r['ip'], 'attesa') === false && $r['ip'] !== 'Non rilevato'): ?>
                                                 <div class="alert alert-success py-2 mb-0">
                                                     <strong>Accesso SSH pronto:</strong><br>
-                                                    <code>ssh <?= htmlspecialchars($r['requester_username']) ?>@<?= $r['ip'] ?></code><br>
-                                                    <strong>Password:</strong> <code><?= htmlspecialchars($r['vm_password']) ?></code><br>
+                                                    <code>ssh ubuntu@<?= $r['ip'] ?></code><br>
+                                                    <strong>Password:</strong> <code>Password/1</code><br>
                                                     VMID: <strong><?= $r['vmid'] ?></strong>
                                                 </div>
                                             <?php else: ?>

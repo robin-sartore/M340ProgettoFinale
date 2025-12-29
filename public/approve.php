@@ -65,7 +65,7 @@ $clone = proxmox_api($proxmox, 'POST',
     [
         'newid' => $vmid,
         'name' => $request['hostname'],
-        'full' => 1,
+        'full' => 0,
         'target' => $proxmox['node']
     ]
 );
